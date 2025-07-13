@@ -8,3 +8,5 @@
     - make `"outdir": "./dist"`
 3. `npm i express mongoose zod jsonwebtoken cors dotenv`
 3. `npm i -D ts-node-dev @types/express @types/cors @types/dotenv @types/jsonwebtoken`
+4. setup es-lint as per their doc -> https://typescript-eslint.io/getting-started
+5. rename `.end.dev` to `.env`
