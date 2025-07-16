@@ -1,13 +1,13 @@
 import app from "./app";
 import mongoose from "mongoose";
 import { Server } from "http";
-import { loadEnv } from "./app/config";
+import { envVars } from "./app/config";
 
 let server: Server;
 
 async function bootstrap() {
   try {
-    const { DATABASE_URL, PORT } = loadEnv();
+    const { DATABASE_URL, PORT } = envVars;
 
     await mongoose.connect(DATABASE_URL);
 

@@ -4,12 +4,12 @@ import path from "path";
 dotenv.config({ path: path.join(process.cwd(), ".env") });
 
 interface IEnvConfig {
-  NODE_ENV: "dev" | "prod";
+  NODE_ENV: "development" | "production";
   PORT: string;
   DATABASE_URL: string;
 }
 
-export const loadEnv = (): IEnvConfig => {
+const loadEnv = (): IEnvConfig => {
   const requiredEnvVars = ["NODE_ENV", "PORT", "DATABASE_URL"];
 
   let envVars = {};
@@ -27,3 +27,5 @@ export const loadEnv = (): IEnvConfig => {
 
   return envVars as IEnvConfig;
 };
+
+export const envVars = loadEnv();

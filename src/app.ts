@@ -5,6 +5,8 @@ import express, {
 } from "express";
 import { commonMiddlewares } from "./app/middlewares/commonMiddlewares";
 import { router } from "./app/routes";
+import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 
 const app: Application = express();
 
@@ -17,5 +19,13 @@ app.get("/", (req: Request, res: Response) => {
     message: "Welcome to Tour Management System Backend",
   });
 });
+
+/**
+ * when you pass 4 params
+ * node treats that function as GLOBAL ERROR HANDLER
+ */
+app.use(globalErrorHandler);
+
+app.use(notFound);
 
 export default app;

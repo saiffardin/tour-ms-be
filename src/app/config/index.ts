@@ -1,1 +1,1 @@
-export * from "./load-env";
+export * from "./env";
