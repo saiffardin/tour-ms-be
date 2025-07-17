@@ -1,5 +1,5 @@
 import z from "zod";
-import { IsActive, Role } from "../user.interface";
+import { IsActive, Role } from "../constants/enums";
 
 export const updateUserZodSchema = z.object({
   name: z

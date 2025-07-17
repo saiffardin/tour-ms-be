@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
-import { IAuthProvider, IsActive, IUser, Role } from "./user.interface";
+import { IAuthProvider, IUser } from "./interfaces";
+import { IsActive, Role } from "./constants/enums";
 
 const authProviderSchema = new Schema<IAuthProvider>(
   {
