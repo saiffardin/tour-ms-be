@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
-import { envVars } from "../config";
 import AppError from "../errorHelpers/AppError";
+import { sendResponse } from "../utils/sendResponse";
 
 /**
  * when you pass 4 params
@@ -25,10 +25,11 @@ export const globalErrorHandler = (
     message = err.message;
   }
 
-  res.status(statusCode).json({
+  sendResponse(res, {
     success: false,
+    statusCode,
     message,
-    err,
-    stack: envVars.NODE_ENV === "development" ? err.stack : null,
+    data: null,
+    error: err,
   });
 };
