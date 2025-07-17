@@ -2,8 +2,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { UserService } from "../services";
 import httpStatus from "http-status-codes";
-import { catchAsync } from "../../../utils/catchAsync";
-import { sendResponse } from "../../../utils/sendResponse";
+import { catchAsync } from "@/app/utils/catchAsync";
+import { sendResponse } from "@/app/utils/sendResponse";
 
 export const getAllUsers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
