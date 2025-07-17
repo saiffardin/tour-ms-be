@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import app from "./app";
 import mongoose from "mongoose";
 import { Server } from "http";
@@ -11,15 +12,13 @@ async function bootstrap() {
 
     await mongoose.connect(DATABASE_URL);
 
-    // eslint-disable-next-line no-console
+    console.log("--------------------------------");
     console.log("Mongoose Connected.");
 
     server = app.listen(PORT, () => {
-      // eslint-disable-next-line no-console
       console.log(`Server Running on port ${PORT} `);
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.log("Failed to connect Mongoose.");
     console.error(error);
   }

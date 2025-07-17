@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type Response, type Request, type NextFunction } from "express";
-// import { User } from "../user.model";
 import httpStatusCodes from "http-status-codes";
-import { UserService } from "../user.service";
+import { UserService } from "../services";
+import { catchAsync } from "../../../utils/catchAsync";
 
+/*
 export const createUser = async (
   req: Request,
   res: Response,
@@ -25,3 +25,16 @@ export const createUser = async (
     next(err);
   }
 };
+*/
+
+export const createUser = catchAsync(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await UserService.createUser(req.body);
+
+    res.status(httpStatusCodes.CREATED).json({
+      message: "User Created Successfully",
+      user,
+    });
+  }
+);

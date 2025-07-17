@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { createUser } from "./controllers";
+import { UserControllers } from "./controllers";
 
 export const UserRoutes = Router();
 
-UserRoutes.post("/register", createUser);
+UserRoutes.get("/", UserControllers.getAllUsers);
+UserRoutes.post("/register", UserControllers.createUser);
