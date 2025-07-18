@@ -7,11 +7,31 @@ interface IEnvConfig {
   NODE_ENV: "development" | "production";
   PORT: string;
   DATABASE_URL: string;
+
+  JWT_ACCESS_SECRET: string;
+  JWT_ACCESS_EXPIRES: string;
+
+  BCRYPT_SALT_ROUND: string;
+
+  SUPER_ADMIN_EMAIL: string;
+  SUPER_ADMIN_PASSWORD: string;
 }
 
-const loadEnv = (): IEnvConfig => {
-  const requiredEnvVars = ["NODE_ENV", "PORT", "DATABASE_URL"];
+const requiredEnvVars = [
+  "NODE_ENV",
+  "PORT",
+  "DATABASE_URL",
 
+  "JWT_ACCESS_SECRET",
+  "JWT_ACCESS_EXPIRES",
+
+  "BCRYPT_SALT_ROUND",
+
+  "SUPER_ADMIN_EMAIL",
+  "SUPER_ADMIN_PASSWORD",
+];
+
+const loadEnv = (): IEnvConfig => {
   let envVars = {};
 
   requiredEnvVars.forEach((key) => {

@@ -13,7 +13,7 @@ async function bootstrap() {
     await mongoose.connect(DATABASE_URL);
 
     console.log("--------------------------------");
-    console.log("Mongoose Connected.");
+    console.log("Mongoose Connected at:", DATABASE_URL);
 
     server = app.listen(PORT, () => {
       console.log(`Server Running on port ${PORT} `);
@@ -40,7 +40,7 @@ process.on("unhandledRejection", (reason, promise) => {
 });
 
 process.on("uncaughtException", (reason, promise) => {
-  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+  console.error("uncaughtException at:", promise, "reason:", reason);
   // Optionally exit process or log error
 
   if (server) {
@@ -53,7 +53,7 @@ process.on("uncaughtException", (reason, promise) => {
 });
 
 process.on("SIGTERM", () => {
-  console.error("Unhandled Rejection at:");
+  console.error("SIGTERM at:");
   // Optionally exit process or log error
 
   if (server) {

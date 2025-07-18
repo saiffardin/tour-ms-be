@@ -10,3 +10,5 @@ export enum IsActive {
   INACTIVE = "INACTIVE",
   BLOCKED = "BLOCKED",
 }
+
+export type RoleType = (typeof Role)[keyof typeof Role];
