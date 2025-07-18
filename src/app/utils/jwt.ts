@@ -1,6 +1,7 @@
 import jwt, { type JwtPayload, type SignOptions } from "jsonwebtoken";
 import { RoleType } from "../modules/user/constants/enums";
 import { Types } from "mongoose";
+import AppError from "../errorHelpers/AppError";
 
 export interface CustomJwtPayload extends JwtPayload {
   userId: Types.ObjectId;
@@ -22,8 +23,17 @@ export const generateToken = (
   return token;
 };
 
-export const verifyToken = (token: string, secret: string) => {
-  const verifiedToken = jwt.verify(token, secret) as CustomJwtPayload;
+export const verifyToken = (
+  bearerToken: string | undefined,
+  secret: string
+) => {
+  if (!bearerToken) {
+    throw new AppError(403, "No JWT Received");
+  }
+
+  const accessToken = bearerToken?.split(" ")[1];
+
+  const verifiedToken = jwt.verify(accessToken, secret) as CustomJwtPayload;
 
   return verifiedToken;
 };

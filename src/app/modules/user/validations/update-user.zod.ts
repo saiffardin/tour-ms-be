@@ -32,10 +32,12 @@ export const updateUserZodSchema = z.object({
 
   role: z
     // .enum(["ADMIN", "GUIDE", "USER", "SUPER_ADMIN"])
-    .enum(Object.values(Role) as [string])
+    // .enum(Object.values(Role) as [string])
+    .nativeEnum(Role)
     .optional(),
 
-  isActive: z.enum(Object.values(IsActive) as [string]).optional(),
+  // isActive: z.enum(Object.values(IsActive) as [string]).optional(),
+  isActive: z.nativeEnum(IsActive).optional(),
 
   isDeleted: z
     .boolean({ invalid_type_error: "isDeleted must be true or false" })

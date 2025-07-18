@@ -9,13 +9,7 @@ export const checkAuth =
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bearerToken = req.headers.authorization;
-
-      if (!bearerToken) {
-        throw new AppError(403, "No JWT Received");
-      }
-
-      const accessToken = bearerToken?.split(" ")[1];
-      const verifiedToken = verifyToken(accessToken, envVars.JWT_ACCESS_SECRET);
+      const verifiedToken = verifyToken(bearerToken, envVars.JWT_ACCESS_SECRET);
 
       if (!authRoles.includes(verifiedToken.role)) {
         throw new AppError(403, "You are not permitted to view this route!!!");
