@@ -3,6 +3,7 @@ import app from "./app";
 import mongoose from "mongoose";
 import { Server } from "http";
 import { envVars } from "./app/config";
+import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
 
 let server: Server;
 
@@ -24,7 +25,10 @@ async function bootstrap() {
   }
 }
 
-bootstrap();
+(async () => {
+  await bootstrap();
+  await seedSuperAdmin();
+})();
 
 process.on("unhandledRejection", (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
