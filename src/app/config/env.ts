@@ -10,6 +10,8 @@ interface IEnvConfig {
 
   JWT_ACCESS_SECRET: string;
   JWT_ACCESS_EXPIRES: string;
+  JWT_REFRESH_SECRET: string;
+  JWT_REFRESH_EXPIRES: string;
 
   BCRYPT_SALT_ROUND: string;
 
@@ -24,6 +26,8 @@ const requiredEnvVars = [
 
   "JWT_ACCESS_SECRET",
   "JWT_ACCESS_EXPIRES",
+  "JWT_REFRESH_SECRET",
+  "JWT_REFRESH_EXPIRES",
 
   "BCRYPT_SALT_ROUND",
 

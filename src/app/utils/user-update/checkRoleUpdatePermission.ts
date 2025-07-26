@@ -1,4 +1,4 @@
-import { CustomJwtPayload } from "../jwt";
+import { CustomJwtPayload } from "../jwt/types";
 import httpStatus from "http-status-codes";
 import AppError from "@/app/errorHelpers/AppError";
 import { IUser } from "@/app/modules/user/interfaces";

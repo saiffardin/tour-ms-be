@@ -3,8 +3,9 @@ import { envVars } from "@/app/config";
 import { User } from "../user/user.model";
 import httpStatus from "http-status-codes";
 import { IUser } from "../user/interfaces";
+import { generateToken } from "@/app/utils/jwt";
 import AppError from "@/app/errorHelpers/AppError";
-import { CustomJwtPayload, generateToken } from "@/app/utils/jwt";
+import { CustomJwtPayload } from "@/app/utils/jwt/types";
 
 const credentialsLogin = async (payload: Partial<IUser>) => {
   const { email, password } = payload;
@@ -36,8 +37,19 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
     envVars.JWT_ACCESS_EXPIRES
   );
 
+  const refreshToken = generateToken(
+    jwtPayload,
+    envVars.JWT_REFRESH_SECRET,
+    envVars.JWT_REFRESH_EXPIRES
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password: _, ...userInfo } = isUserExist.toObject();
+
   return {
     accessToken,
+    refreshToken,
+    user: userInfo,
   };
 };
 

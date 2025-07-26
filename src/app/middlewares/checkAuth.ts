@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import AppError from "../errorHelpers/AppError";
-import { verifyToken } from "../utils/jwt";
 import { envVars } from "../config";
+import { verifyToken } from "../utils/jwt";
+import AppError from "../errorHelpers/AppError";
+import { NextFunction, Request, Response } from "express";
 import { RoleType } from "../modules/user/constants/enums";
 
 export const checkAuth =

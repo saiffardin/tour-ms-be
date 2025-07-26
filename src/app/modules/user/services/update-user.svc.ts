@@ -2,7 +2,7 @@ import bcryptjs from "bcryptjs";
 import { User } from "../user.model";
 import { IUser } from "../interfaces";
 import { envVars } from "@/app/config";
-import { CustomJwtPayload } from "@/app/utils/jwt";
+import { CustomJwtPayload } from "@/app/utils/jwt/types";
 import {
   checkRoleUpdatePermission,
   onlyAdminOrSuperAdminCanUpdate,
