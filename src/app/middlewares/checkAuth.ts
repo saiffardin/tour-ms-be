@@ -9,7 +9,10 @@ export const checkAuth =
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const bearerToken = req.headers.authorization;
-      const verifiedToken = verifyToken(bearerToken, envVars.JWT_ACCESS_SECRET);
+
+      const accessToken = bearerToken?.split(" ")[1];
+
+      const verifiedToken = verifyToken(accessToken, envVars.JWT_ACCESS_SECRET);
 
       if (!authRoles.includes(verifiedToken.role)) {
         throw new AppError(403, "You are not permitted to view this route!!!");

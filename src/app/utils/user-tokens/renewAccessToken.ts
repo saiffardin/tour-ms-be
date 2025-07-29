@@ -11,11 +11,11 @@ const validateUserForTokenRenewal = async (user: IUser) => {
   const { isActive, isDeleted } = user;
 
   if (isActive === IsActive.BLOCKED || isActive === IsActive.INACTIVE) {
-    throw new AppError(httpStatus.BAD_REQUEST, `User is ${isActive}`);
+    throw new AppError(httpStatus.BAD_REQUEST, `User is ${isActive}.`);
   }
 
   if (isDeleted) {
-    throw new AppError(httpStatus.BAD_REQUEST, "User is deleted");
+    throw new AppError(httpStatus.BAD_REQUEST, "User is deleted.");
   }
 };
 
@@ -29,7 +29,7 @@ export const renewAccessToken = async (refreshToken: string) => {
   const user = await User.findOne({ email: verifiedRefreshToken.email });
 
   if (!user) {
-    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist");
+    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist.");
   }
 
   await validateUserForTokenRenewal(user);
