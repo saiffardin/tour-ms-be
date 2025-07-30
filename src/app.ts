@@ -9,9 +9,12 @@ import { sendResponse } from "./app/utils/sendResponse";
 import { commonMiddlewares } from "./app/middlewares/commonMiddlewares";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
 
+import { passportMiddlewares } from "./app/middlewares/passportMiddlewares";
+
 const app: Application = express();
 
 app.use(commonMiddlewares);
+app.use(passportMiddlewares);
 
 app.use("/api/v1", router);
 

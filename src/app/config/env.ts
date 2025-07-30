@@ -17,6 +17,13 @@ interface IEnvConfig {
 
   SUPER_ADMIN_EMAIL: string;
   SUPER_ADMIN_PASSWORD: string;
+
+  GOOGLE_CLIENT_SECRET: string;
+  GOOGLE_CLIENT_ID: string;
+  GOOGLE_CALLBACK_URL: string;
+
+  EXPRESS_SESSION_SECRET: string;
+  FRONTEND_URL: string;
 }
 
 const requiredEnvVars = [
@@ -33,6 +40,13 @@ const requiredEnvVars = [
 
   "SUPER_ADMIN_EMAIL",
   "SUPER_ADMIN_PASSWORD",
+
+  "GOOGLE_CLIENT_SECRET",
+  "GOOGLE_CLIENT_ID",
+  "GOOGLE_CALLBACK_URL",
+
+  "EXPRESS_SESSION_SECRET",
+  "FRONTEND_URL",
 ];
 
 const loadEnv = (): IEnvConfig => {
