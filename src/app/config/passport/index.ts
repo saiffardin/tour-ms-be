@@ -1,11 +1,13 @@
 import passport from "passport";
-import { googleVerify } from "./google.verify";
 import { User } from "../../modules/user/user.model";
-import { googleCredentials } from "./google.credentials";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
-import { localCredentials } from "./local.credentials";
-import { localVerify } from "./local.verify";
+import {
+  googleCredentials,
+  googleVerify,
+  localCredentials,
+  localVerify,
+} from "./strategies";
 
 passport.use(new GoogleStrategy(googleCredentials, googleVerify));
 

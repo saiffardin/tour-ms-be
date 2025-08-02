@@ -1,5 +1,5 @@
+import { envVars } from "@/app/config/env";
 import { type StrategyOptions } from "passport-google-oauth20";
-import { envVars } from "../env";
 
 export const googleCredentials: StrategyOptions = {
   clientID: envVars.GOOGLE_CLIENT_ID,
