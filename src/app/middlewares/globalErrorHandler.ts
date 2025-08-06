@@ -1,8 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextFunction, Request, Response } from "express";
+
+import {
+  handleCastError,
+  handlerDuplicateError,
+  handlerValidationError,
+  handlerZodError,
+} from "../errorHelpers/handlers";
+import { envVars } from "../config";
 import AppError from "../errorHelpers/AppError";
-import { sendResponse } from "../utils/sendResponse";
+import { TErrorSources } from "../interfaces/error.types";
+import { type NextFunction, type Request, type Response } from "express";
 
 /**
  * when you pass 4 params
@@ -14,10 +22,42 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  if (envVars.NODE_ENV === "development") {
+    console.error(err);
+  }
+
+  let errorSources: TErrorSources[] = [];
   let statusCode = 500;
   let message = "Something Went Wrong!!";
 
-  if (err instanceof AppError) {
+  //Duplicate error
+  if (err.code === 11000) {
+    const simplifiedError = handlerDuplicateError(err);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+  }
+  // Object ID error / Cast Error
+  else if (err.name === "CastError") {
+    const simplifiedError = handleCastError(err);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+  }
+
+  // Zod Validation Error
+  else if (err.name === "ZodError") {
+    const simplifiedError = handlerZodError(err);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorSources = simplifiedError.errorSources as TErrorSources[];
+  }
+
+  //Mongoose Validation Error
+  else if (err.name === "ValidationError") {
+    const simplifiedError = handlerValidationError(err);
+    statusCode = simplifiedError.statusCode;
+    errorSources = simplifiedError.errorSources as TErrorSources[];
+    message = simplifiedError.message;
+  } else if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;
   } else if (err instanceof Error) {
@@ -25,11 +65,11 @@ export const globalErrorHandler = (
     message = err.message;
   }
 
-  sendResponse(res, {
+  res.status(statusCode).json({
     success: false,
-    statusCode,
     message,
-    data: null,
-    error: err,
+    errorSources,
+    err: envVars.NODE_ENV === "development" ? err : null,
+    stack: envVars.NODE_ENV === "development" ? err.stack : null,
   });
 };
