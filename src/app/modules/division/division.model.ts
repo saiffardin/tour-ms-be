@@ -10,7 +10,7 @@ const divisionSchema = new Schema<IDivision>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 divisionSchema.pre("save", async function (next) {
